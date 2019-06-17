@@ -1,0 +1,23 @@
+"""
+Simple python program which takes in any arbitrary integer as input and displays the Fibonacci series till that number.
+"""
+
+def display_fibonacci(n):
+    '''
+    Input  : Any integer N
+    Output : Fibonacci series displayed till the integer N
+    '''
+
+    fib = []
+    a = 1
+    b = 1
+    for x in range(n):
+        fib.append(a)
+        a,b  = b,a+b
+    print(fib)
+
+
+display_fibonacci(10)
+ 
+
+
