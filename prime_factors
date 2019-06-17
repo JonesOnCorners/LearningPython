@@ -1,0 +1,19 @@
+def display_prime_factors(n):
+    '''
+    Input  : Any integer N
+    Output : All prime factors of N
+    '''    
+    result = []
+    for x in range(n):
+        if x == 0 or x == 1:
+            continue
+        if n%x == 0:
+            result.append(x)
+    return result
+
+display_prime_factors(6)
+ 
+
+
+
+
