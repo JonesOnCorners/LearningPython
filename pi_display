@@ -1,0 +1,25 @@
+"""
+This is a simple python program which takes in a precision value as input and returns Pi formatted till the input-th decimal place.
+"""
+
+
+
+
+def display_pi(n):
+    '''
+    Input : The precision to which you want the value of Pi to be displayed
+    Output: The value Pi formatted till the input- th decimal place.
+    '''
+    a = 22/7
+    print("Name is {0:.{1}f}".format(a,n))
+    
+
+max_limit  = 100
+limit_check = True
+while limit_check:
+   pi_limit  = int(input("Input the number of decimals until which you want the value of Pi to be printed.(Max values  = 100) "))
+   if pi_limit < max_limit:
+       display_pi(pi_limit)
+       limit_check = False
+
+
