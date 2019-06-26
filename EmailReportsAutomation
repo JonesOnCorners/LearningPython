@@ -1,0 +1,20 @@
+import smtplib 
+from string import Template
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+s = smtplib.SMTP(host='smtp.office365.com', port=587)
+s.starttls()
+s.login()
+message_template = "Hello Email"
+
+msg = MIMEMultipart()
+msg [ 'From'] = ''
+msg [ 'To'] = ''
+msg [ 'Cc'] = ''
+msg [ 'Subject'] = ''
+msg.attach(MIMEText(message_template,'plain'))
+s.send_message(msg)
+del msg
+
+s.quit()
