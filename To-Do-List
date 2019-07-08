@@ -1,0 +1,180 @@
+from tkinter import *
+from tkinter import messagebox
+from tkinter import StringVar
+from tkinter import Label
+from tkinter import Button
+from tkinter import Listbox
+from tkinter import Text
+import random
+
+#Create root window
+root = Tk()
+root.resizable(0,0)
+
+# Change root window bg colour
+root.configure(bg="white")
+
+# Create title
+root.title("Todo Helper")
+
+# set window size
+root.geometry("550x400")
+
+#Create empty list
+tasks = []
+
+#List for testing
+tasks =["Dev Gym Completion", "Send JIRA report to Mani","Publish Something to DEV.to"]
+completed_tasks = []
+
+# Create functions:
+
+
+
+
+def update_listbox():
+    # clear the current listbox
+    clear_listbox()
+    counter = 0
+    # Populate listbox by appending each task to list
+    for task in tasks:
+        lb_tasks.insert("end", task)
+        lb_tasks.itemconfig(counter,bg="red")
+        counter += 1
+
+
+
+def clear_listbox():
+    lb_tasks.delete(0, "end")
+    lb_tasks_completed.delete(0, "end")
+
+def add_task(event=None): # "event=None" so that enter key can add task without clicking the button
+    #get user input(prompt)
+    task = txt_input.get()
+    # Ensure user has enetered a task
+    if task !="":
+      tasks.append(task)
+      update_listbox()
+    else:
+        messagebox.showwarning("Note!", "Please enter a task")
+    # Clear the textbox to avoid adding the same task twice accidentally
+    txt_input.delete(0, "end")
+
+root.bind('<Return>', add_task)# bind return key to add_task so that enter key can add task without clicking the button
+
+
+
+
+def num_tasks():
+    num_tasks = len(tasks)
+    msg = ""
+    if num_tasks == 1:
+        msg = "There is 1 tasks in the list"
+    else:
+        msg = (f'There are {num_tasks} tasks in the list')
+    lbl_display["text"]=msg
+
+def delete_task():
+
+    # Get the text of the currently selected item
+    task = lb_tasks.get("active")
+    # Confirm task is in list
+    if task in tasks:
+        confirm_del = messagebox.askyesno("Confirm Deletion", "Are you sure you want to delete task:   ** {} ** ?".format(task))
+        if confirm_del:# tkmessageBox.askyesno returns boolean
+          tasks.remove(task)
+    update_listbox()
+
+def mark_task_complete():
+    # Get the text of the currently selected item
+    task = lb_tasks.get("active")
+    # Confirm task is in list
+    if task in tasks:
+        confirm_del = messagebox.askyesno("Confirm Completion", "Are you sure you have completed the task?   ** {} ** ?".format(task))
+        if confirm_del:# tkmessageBox.askyesno returns boolean
+          tasks.remove(task)
+          completed_tasks.append(task)          
+    update_listbox()
+    display_completed_listbox()
+
+
+
+def mark_task_incomplete():
+    # As list is being changed, it needs to be global.
+    task = lb_tasks_completed.get("active")
+    global completed_tasks
+    global tasks
+    confirm_del = messagebox.askyesno("Mark Incomplete Confirmation", "Are you sure you want to mark task as incomplete ?")
+    if len(completed_tasks) == 0:
+        messagebox.showerror("No compelted tasks","There are currently no tasks completed")
+    elif confirm_del:
+      # Clear the tasks list.
+      tasks.append(task)
+      completed_tasks.remove(task)
+      # Update listbox
+      update_listbox()
+      display_completed_listbox()
+
+def exit():
+    quit()
+
+root.bind('<Return>', add_task)
+
+equation  = StringVar()
+equation.set("Enter Task Here")
+
+# Create title in root widget of GUI with white background
+lbl_title = Label(root, text="To-Do-List :", bg="white")
+lbl_title.grid(row= 0, column=0 )
+lbl_display = Label(root, text="", bg="white")
+lbl_display.grid(row=0 , column=1 )
+
+txt_input = Entry(root, width = 25,bg="light blue",textvariable=equation)
+txt_input.grid(row=0 , column=1, pady=10 )
+
+btn_add_task = Button(root, text="Add Task", fg="green", bg="white", command=add_task)
+btn_add_task.grid(row= 2, column=0 )
+
+btn_delete_task = Button(root, text="Delete Task", fg="green", bg="white", command=delete_task)
+btn_delete_task.grid(row=2 , column=1 )
+
+btn_delete_task = Button(root, text="Complete Task", fg="green", bg="white", command=mark_task_complete)
+btn_delete_task.grid(row=2 , column=2 )
+
+btn_delete_all = Button(root, text="Mark Incomplete", fg="green", bg="white", command=mark_task_incomplete)
+btn_delete_all.grid(row=2 , column= 3)
+
+lb_tasks = Listbox(root)
+lb_tasks.grid(row=4 , column=0, rowspan=7,  pady = 20, padx=5)
+
+lb_tasks_completed = Listbox(root)
+lb_tasks_completed.grid(row=4 , column=2, rowspan=7, pady = 20)
+
+btn_quit_program = Button(root, text="Exit", fg="green", bg="white", command=exit)
+btn_quit_program.grid(row=14 , column=0)
+
+
+#Populate listbox at program start for future file io functionality
+def show_listbox():
+    counter = 0
+    global tasks
+    for task in tasks:
+        lb_tasks.insert("end", task )
+        lb_tasks.itemconfig(counter,bg='red')
+        counter+=1
+
+
+def display_completed_listbox():
+    counter = 0
+    global completed_tasks
+    for task in completed_tasks:
+        lb_tasks_completed.insert("end", task)
+        lb_tasks_completed.itemconfig(counter,bg='green')
+        counter+=1
+
+#Populate listbox at program start for future file io functionality
+show_listbox()
+display_completed_listbox()
+
+# Start the main events loop
+root.mainloop()
