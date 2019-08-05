@@ -23,3 +23,6 @@ source <env_name/bin/activate
 
 #Deactivate virtual env
 deactivate
+
+#Install dependencies via a config file
+pip3 install -r <<filename>>
