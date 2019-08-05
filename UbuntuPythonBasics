@@ -1,0 +1,25 @@
+i-08d9ac3ea4307a6aa 
+#Command to switch to root on Ubuntu 18.04 EC2
+sudo su
+
+#Command to get the latest updates post launching the EC2
+apt-get update followed by apt-get upgrade
+
+#Install the pip3 latest version
+apt install -y python3-pip
+
+#Install virtual environment
+apt install -y python3-venv
+
+#Create a new virtual enV
+1) Fire the command to locate Python3
+which python
+
+2) Using the path in step 1 fire
+python3 -m <env_name>
+
+#Activate the virtual env
+source <env_name/bin/activate
+
+#Deactivate virtual env
+deactivate
