@@ -19,10 +19,13 @@ which python
 python3 -m <env_name>
 
 #Activate the virtual env
-source <env_name/bin/activate
+source <env_name>>/bin/activate
 
 #Deactivate virtual env
 deactivate
 
 #Install dependencies via a config file
 pip3 install -r <<filename>>
+
+#Locate all virtual environments
+locate activate
