@@ -1,0 +1,27 @@
+def converted_function(unit):
+    if unit == "TEMPERATURE":
+        unit_var  = int(input("""For Degrees to Fahrenheit press 1\nFor Fahrenheit to Degrees press 2"""))
+        value_var = int(input("Enter temperature to be converted"))            
+        if unit_var == 1:
+            print(value_var * 1.8  + 32)
+        print((value_var - 32)/1.8)
+    elif unit == "CURRENCY":
+        print("Converting currency")
+    
+
+
+    
+
+
+if __name__ == "__main__":
+    unit_var = input("""Enter which converter application do you want to access,
+                1. TEMPERATURE
+                2. CURRENCY""")
+    converted_function(unit_var)
+    
+    
+    
+    
+    
+    
+    
