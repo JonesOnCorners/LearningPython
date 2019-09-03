@@ -20,6 +20,15 @@ def get_display_word(word, idxs):
     displayed_word = ''.join([letter if idxs[i] else '*' for i, letter in enumerate(word)])
     return displayed_word.strip() 
 
+def get_rating(guess_counter):
+    print(guess_counter)
+    if guess_counter >= 5:
+        return "Elite"
+    elif guess_counter < 5 and guess_counter > 2:
+        return "Good"
+    else:
+        return "Average"
+
 def play_game():
     actual_word = return_new_word()
     length_of_word = len(actual_word)
@@ -30,10 +39,11 @@ def play_game():
     guess_counter = 11
     while guess_counter > 0:
         guess = input("Take your guess:-")
+        print(guess_counter)
         if not guess.isalpha() or len(guess) != 1:
             print("Invalid input, you have lost one guess, please be more careful.\n")
             guess_counter = guess_counter - 1 
-            print("Attempts remaining:- ", guess_counter)
+            print("Attempts remaining {0}".format(guess_counter))
         else:
             if guess in actual_word:
                 for i in range(len(actual_word)):
@@ -43,12 +53,16 @@ def play_game():
                 length_of_word_count -= 1 
                 if length_of_word_count == 0:
                     print("Hurray!!! You guessed right, the word is '{0}'".format(actual_word.upper()))
-                    exit(0)
+                    print(guess_counter)
+                    print("Your rating for the try is {0}".format(get_rating(guess_counter)))
+                    guess_counter = 0
+                    break
             else:
-                print("Miss\n")
+                guess_counter = guess_counter - 1 
+                print("Miss, remaining guesses {0}".format(guess_counter))
     else:
         print("Sorry, you seem ot have trouble understanding English.\n")
-    if guess_counter == 0:
+    if guess_counter == 0 or length_of_word_count == 0:
         try_again = input('Would you like to try again? [y/Y] ')
         return try_again.lower() == 'y'
         
